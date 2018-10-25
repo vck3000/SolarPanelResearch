@@ -3,10 +3,12 @@ clc;
 
 tic
 
-% Read the data
+
 [num, txt, raw] = xlsread('data/combined.csv');
 
-SOLAR_POWER = 1056; % In Watts per meter^2
+
+SolarEnergy = 1056; % In Watts per meter^2
+
 
 % For every solar panel
 for i = 1:length(raw)
@@ -45,21 +47,15 @@ for i = 1:length(raw)
             numOfPanelsToHave = 0;
         end
     end
-    % Get area of one panel
+    % Get area of one pal
     areaOfOnePanel = height * width;
-    % Total area with number of panels
     areaTotal = areaOfOnePanel * numOfPanelsToHave;
     
-    % Power = Area * Incoming power * Efficiency
-    % /1000000 is to convert from mm^2 to m^2
-    totalPowerFromPanel = areaTotal * SOLAR_POWER * (eff/100) / 1000000;
+    totalEnergyFromPanel = areaTotal * SolarEnergy * (eff/100) / 1000000;
     
-    % Add in a new column for power produced by solar panel
-    raw(i, 10) = {totalPowerFromPanel};
+    raw(i, 10) = {totalEnergyFromPanel};
 end
 
-% Sort the output by descending order to find the best performing solar
-% panels
 sortedProcessed = sortrows(raw, 10, 'descend');
 
 

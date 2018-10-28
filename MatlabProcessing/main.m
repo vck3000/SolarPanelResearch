@@ -58,9 +58,19 @@ for i = 1:length(raw)
     raw(i, 10) = {totalPowerFromPanel};
 end
 
+disp('Finished processing. Saving file...');
+
+
 % Sort the output by descending order to find the best performing solar
 % panels
 sortedProcessed = sortrows(raw, 10, 'descend');
 
+headings = {'Height', 'Width', 'Thickness', 'Efficiency','Cleaned Efficiency', 'Model', 'N/A', 'N/A', 'N/A', 'Power output'};
+
+sortedProcessedHeading = [headings; sortedProcessed];
+
+cell2csv('BestSolarPanels.csv',sortedProcessedHeading)
+
+% dlmwrite(, num2cell(sortedProcessed));
 
 toc
